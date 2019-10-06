@@ -19,6 +19,8 @@ CONSOLE_WINDOW_HEIGHT=$(tput lines)
 TAB_SIZE=$((${CONSOLE_WINDOW_WIDTH} - 10))
 CURRENT_NODE_VERSION=$(node -v)
 NEW_NODE_VERSION="v12.11.1"
+LATEST_NODE_VERSION=$(nvm list available)
+echo "LATEST_NODE_VERSION: ${LATEST_NODE_VERSION}"
 
 function echoInTab {
   # echo "\$1: ${1} (${#1} chars)"
