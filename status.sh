@@ -55,14 +55,16 @@ echo
 echo "npm -g list --depth=0"
 OUTPUT=$(npm -g list --depth=0)
 echo -en "${PRIMARY_COLOR}"
-echo "${OUTPUT}" | sed -e 1d
+echo "${OUTPUT}"
 echo -en "${DEFAULT_COLOR}"
 
 echo
 
 echo "npm -g outdated"
 OUTPUT=$(npm -g outdated)
-echo "${OUTPUT}" | sed -e 1d
+echo -en "${PRIMARY_COLOR}"
+echo "${OUTPUT}"
+echo -en "${DEFAULT_COLOR}"
 
 echo
 
