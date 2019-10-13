@@ -16,7 +16,7 @@ LATEST_NODE_VERSION=$(echo "${LATEST_NODE_VERSION}" | tr -d '[:space:]')
 
 CURRENT_NPM_VERSION=$(npm -v)
 
-########################### functions ###########################
+########################### tab functions ###########################
 
 function echoInTab() {
   i=$((${TAB_SIZE} - ${#1}))
@@ -37,6 +37,8 @@ function addTab() {
   done
   echo -e "${s}${PRIMARY_COLOR}${2}${DEFAULT_COLOR}"
 }
+
+########################### functions ###########################
 
 function removeNpmCacheDirectory() {
   MESSAGE="rm -rf \"${APPDATA}\\npm-cache\""
@@ -95,6 +97,21 @@ function echoGlobalNodeDependencies() {
   echo -en "${DEFAULT_COLOR}"
 }
 
+function removeNvmNodeNpm() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\npm\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\npm")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function thereIsNewNodeVersion() {
+  if [ ${CURRENT_NODE_VERSION} != ${LATEST_NODE_VERSION} ]; then
+    return 0
+  fi
+  return 1
+}
+
 function thereIsNewNpmVersion() {
   OUTPUT=$(npm -g outdated)
   for LINE in $OUTPUT; do
@@ -105,17 +122,7 @@ function thereIsNewNpmVersion() {
   return 1
 }
 
-function updateNpm() {
-  removeNpmCacheDirectory
-  # TODO: Add removing of npm and npx (causing errors with nvm)
-}
-
-function thereIsNewNodeVersion() {
-  if [ ${CURRENT_NODE_VERSION} != ${LATEST_NODE_VERSION} ]; then
-    return 0
-  fi
-  return 1
-}
+########################### middleware functions ###########################
 
 function updateNode() {
   removeNpmCacheDirectory
@@ -125,6 +132,19 @@ function updateNode() {
   npmInstallLatestCreateReactAppGlobally
   npmInstallLatestAngularCLIGlobally
   echoGlobalNodeDependencies
+}
+
+function updateNpm() {
+  removeNpmCacheDirectory
+  removeNvmNodeNpm
+  #  removeNvmNodeNpmCmd
+  #  removeNvmNodeNpmPs1
+  #  removeNvmNodeNpx
+  #  removeNvmNodeNpxCmd
+  #  removeNvmNodeNpxPs1
+  #  addSuffixOldToCurrentNpmFolder
+  #  installLatestNpmUsingNpmOld
+  #  removeNpmOld
 }
 
 ########################### code ###########################
@@ -168,6 +188,8 @@ else
   echo "You already have the latest Node.js version."
 fi
 
+echo
+
 if thereIsNewNpmVersion; then
   read -p "Do you want to install latest npm version for nvm-windows? Y/N " INPUT
   if [ ${INPUT} == "Y" ] || [ ${INPUT} == "y" ]; then
@@ -176,5 +198,7 @@ if thereIsNewNpmVersion; then
 else
   echo "You already have the latest npm version."
 fi
+
+echo
 
 echo "[  DONE  ]"
