@@ -77,3 +77,25 @@ else
   echo "Values are NOT equal"
 fi
 ```
+
+
+  echo "git rm -rf ."
+  git rm -rf .
+  echo "git clean -fxd"
+  git clean -fxd
+  
+  
+  
+   +----------------------+------------+-----------------------+-----------------------+
+   |   if VARIABLE is:    |    set     |         empty         |        unset          |
+   +----------------------+------------+-----------------------+-----------------------+
+ - |  ${VARIABLE-default} | $VARIABLE  |          ""           |       "default"       |
+ = |  ${VARIABLE=default} | $VARIABLE  |          ""           | $(VARIABLE="default") |
+ ? |  ${VARIABLE?default} | $VARIABLE  |          ""           |       exit 127        |
+ + |  ${VARIABLE+default} | "default"  |       "default"       |          ""           |
+   +----------------------+------------+-----------------------+-----------------------+
+:- | ${VARIABLE:-default} | $VARIABLE  |       "default"       |       "default"       |
+:= | ${VARIABLE:=default} | $VARIABLE  | $(VARIABLE="default") | $(VARIABLE="default") |
+:? | ${VARIABLE:?default} | $VARIABLE  |       exit 127        |       exit 127        |
+:+ | ${VARIABLE:+default} | "default"  |          ""           |          ""           |
+   +----------------------+------------+-----------------------+-----------------------+

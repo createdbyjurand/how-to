@@ -1,7 +1,14 @@
+#!/bin/bash
+
+source  /shared/functions/echo-with-tab.sh
+source  /shared/functions/echo-add-tab.sh
+source  /shared/functions/executeCommandAndEchoWithTab.sh
+
 ########################### variables ###########################
 
 DEFAULT_COLOR="\e[0m"
 PRIMARY_COLOR="\e[31m"
+SECONDARY_COLOR="\e[32m"
 CONSOLE_WINDOW_WIDTH=$(tput cols)
 CONSOLE_WINDOW_HEIGHT=$(tput lines)
 TAB_SIZE=$((${CONSOLE_WINDOW_WIDTH} - 10))
@@ -105,6 +112,70 @@ function removeNvmNodeNpm() {
   echo "${OUTPUT}"
 }
 
+function removeNvmNodeNpmCmd() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\npm.cmd\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\npm.cmd")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function removeNvmNodeNpmPs1() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\npm.ps1\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\npm.ps1")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function removeNvmNodeNpx() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\npx\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\npx")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function removeNvmNodeNpxCmd() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\npx.cmd\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\npx.cmd")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function removeNvmNodeNpxPs1() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\npx.ps1\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\npx.ps1")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function addSuffixOldToCurrentNpmFolder() {
+  MESSAGE="mv -v \"${APPDATA}\\nodejs\\node_modules\\npm\" \"${APPDATA}\\nodejs\\node_modules\\npmOld\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(mv -v "${APPDATA}\\nodejs\\node_modules\\npm" "${APPDATA}\\nodejs\\node_modules\\npmOld")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function installLatestNpmUsingNpmOld() {
+  MESSAGE="mv -v \"${APPDATA}\\nodejs\\node_modules\\npm\" \"${APPDATA}\\nodejs\\node_modules\\npmOld\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(mv -v "${APPDATA}\\nodejs\\node_modules\\npm" "${APPDATA}\\nodejs\\node_modules\\npmOld")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
+function removeNpmOld() {
+  MESSAGE="rm -f \"${APPDATA}\\nodejs\\node_modules\\npmOld\""
+  echo -n "${MESSAGE}"
+  OUTPUT=$(rm -f "${APPDATA}\\nodejs\\node_modules\\npmOld")
+  addTab "${MESSAGE}" "[  DONE  ]"
+  echo "${OUTPUT}"
+}
+
 function thereIsNewNodeVersion() {
   if [ ${CURRENT_NODE_VERSION} != ${LATEST_NODE_VERSION} ]; then
     return 0
@@ -137,14 +208,14 @@ function updateNode() {
 function updateNpm() {
   removeNpmCacheDirectory
   removeNvmNodeNpm
-  #  removeNvmNodeNpmCmd
-  #  removeNvmNodeNpmPs1
-  #  removeNvmNodeNpx
-  #  removeNvmNodeNpxCmd
-  #  removeNvmNodeNpxPs1
-  #  addSuffixOldToCurrentNpmFolder
-  #  installLatestNpmUsingNpmOld
-  #  removeNpmOld
+  removeNvmNodeNpmCmd
+  removeNvmNodeNpmPs1
+  removeNvmNodeNpx
+  removeNvmNodeNpxCmd
+  removeNvmNodeNpxPs1
+  addSuffixOldToCurrentNpmFolder
+  installLatestNpmUsingNpmOld
+  removeNpmOld
 }
 
 ########################### code ###########################
