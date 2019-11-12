@@ -35,9 +35,14 @@
 #   "8.3.10"
 #   "8.3.12"
 #   "8.3.13"
+#   "8.3.14"
+#   "8.3.15"
+#   "8.3.16"
+#   "8.3.17"
+#   "8.3.18"
 # )
 
-CLI="8.3.13"
+CLI="8.3.18"
 CLI_BRANCH="cli/8"
 REPO_FOLDER="angular-cli-ng-new"
 PROJECT_NAME="angular-cli-ng-new"
