@@ -1,4 +1,5 @@
-# powershell ./start.ps1
+# PowerShell Script to update Node via NVM version 2.0.0
+# powershell ./update-node.ps1
 # powershell -ExecutionPolicy ByPass -File update-node.ps1
 
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
@@ -126,17 +127,25 @@ function Uninstall-OldNvmNodeVersion {
 }
 
 function Install-LatestCreateReactAppGlobally {
-  $Command = "npm i -g create-react-app@latest"
-  Write-Host -NoNewline $Command
-  Invoke-Expression -Command $Command
-  Write-HostWithTab -left $Command -right "[   OK   ]"
+  Write-Host "Do you want to install latest create-react-app globally?" -ForegroundColor Green
+  $Input = Read-Host -Prompt "Y/N?"
+  if ($Input -eq "Y" -Or $Input -eq "y") {
+    $Command = "npm i -g create-react-app@latest"
+    Write-Host -NoNewline $Command
+    Invoke-Expression -Command $Command
+    Write-HostWithTab -left $Command -right "[   OK   ]"
+  }
 }
 
 function Install-LatestAngularCLIGlobally {
-  $Command = "npm i -g @angular/cli@latest"
-  Write-Host -NoNewline $Command
-  Invoke-Expression -Command $Command
-  Write-HostWithTab -left $Command -right "[   OK   ]"
+  Write-Host "Do you want to install latest @angular/cli globally?" -ForegroundColor Green
+  $Input = Read-Host -Prompt "Y/N?"
+  if ($Input -eq "Y" -Or $Input -eq "y") {
+    $Command = "npm i -g @angular/cli@latest"
+    Write-Host -NoNewline $Command
+    Invoke-Expression -Command $Command
+    Write-HostWithTab -left $Command -right "[   OK   ]"
+  }
 }
 
 function Write-HostGlobalNodeDependencies {
