@@ -1,4 +1,4 @@
-# PowerShell Script to update Node via NVM version 2.0.0
+# PowerShell Script to update Node via NVM version 2.2.0
 # powershell ./update-node.ps1
 # powershell -ExecutionPolicy ByPass -File update-node.ps1
 
@@ -24,7 +24,7 @@ function Write-HostWithTab($left, $right) {
 function Remove-NpmCacheFolder {
   $Message = "Removing \npm-cache"
   Write-Host -NoNewline $Message
-  Remove-Item -Path "$env:APPDATA\npm-cache" -Recurse
+  Remove-Item -Path "$env:APPDATA\npm-cache" -Recurse -ErrorAction Ignore
   Write-HostWithTab -left $Message -right "[   OK   ]"
 }
 
@@ -260,7 +260,11 @@ if ($currrentNpmVersion -ne $latestNpmVersion -And $latestNpmVersion -ne "") {
     Update-Npm
   }
 } else {
-  Write-Host "Npm is up to date" -ForegroundColor Green
+  Write-Host "Npm seems to be up to date" -ForegroundColor Green
+  $Input = Read-Host -Prompt "Do you want to force update Npm? Y/N"
+  if ($Input -eq "Y" -Or $Input -eq "y") {
+    Update-Npm
+  }
 }
 
 Write-HostWithTab -left "Script ended" -right "[  DONE  ]"
